@@ -1,0 +1,94 @@
+# describe the activation workflow
+type: Workflow
+match:
+  callback: exact_match
+  input: "/create-issue"
+key: jira_create_issue
+---
+type: Operation
+is_root: true
+selector:
+  workflow: jira_create_issue
+  app: whatsapp
+  app_action: send_message
+next:
+  selector:
+    - type: operation
+      data:
+        workflow: jira_create_issue
+        next: get_description
+payload:
+  content:
+    type: raw
+    data: "Please send the issue's summary"
+key: get_summary
+---
+type: Operation
+selector:
+  workflow: jira_create_issue
+  app: whatsapp
+  app_action: send_message
+next:
+  selector:
+    - type: operation
+      data:
+        workflow: jira_create_issue
+        next: create_issue_request
+payload:
+  content:
+    type: raw
+    data: "Please send the issue's description"
+key: get_description
+---
+type: Operation
+selector:
+  workflow: jira_create_issue
+  app: jira
+  app_action: create_issue
+on_error:
+  selector:
+    - type: operation
+      data:
+        workflow: jira_create_issue
+        next: send_error_message
+next:
+  selector:
+    - type: operation
+      data:
+        workflow: jira_create_issue
+        next: send_success_message
+payload:
+  summary:
+    type: redis
+    data: get_summary:message_data:message:body
+  description:
+    type: redis
+    data: get_description:message_data:message:body
+key: create_issue_request
+---
+type: Operation
+selector:
+  workflow: jira_create_issue
+  app: whatsapp
+  app_action: send_message
+output:
+  operation_type: drop_session
+payload:
+  content:
+    type: redis
+    data: create_issue_request:message
+key: send_success_message
+---
+type: Operation
+selector:
+  workflow: jira_create_issue
+  app: whatsapp
+  app_action: send_message
+output:
+  operation_type: drop_session
+payload:
+  content:
+    type: raw
+    data: "Something went wrong! 🤬\nYou can check your server logs so learn more..."
+key: send_error_message
+

@@ -1,0 +1,19 @@
+{
+	"name": "jira-integration-template",
+	"version": "0.1.0",
+	"description": "RELE.AI Integration with JIRA",
+	"main": "src/index.js",
+	"scripts": {
+		"dev": "rb dev ./src/index.js",
+		"deploy": "echo ''",
+		"cleanup": "sh ./scripts/cleanup.sh"
+	},
+	"dependencies": {
+		"@releai/rb-node-sdk": "*",
+		"dotenv": "^8.2.0",
+		"axios": "0.21.1"
+	},
+	"devDependencies": {
+		"@releai/cli": "*"
+	}
+}
