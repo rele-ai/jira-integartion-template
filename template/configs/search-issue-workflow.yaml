@@ -8,7 +8,8 @@ key: jira_search_issue
 type: Operation
 is_root: true
 selector:
-  workflow: jira_search_issue
+  workflow:
+    - jira_search_issue
   app: whatsapp
   app_action: send_message
 next:
@@ -25,7 +26,8 @@ key: get_query
 ---
 type: Operation
 selector:
-  workflow: jira_search_issue
+  workflow:
+    - jira_search_issue
   app: jira
   app_action: search_issue
 on_error:
@@ -48,7 +50,8 @@ key: query_jira
 ---
 type: Operation
 selector:
-  workflow: jira_search_issue
+  workflow:
+    - jira_search_issue
   app: whatsapp
   app_action: send_message
 output:
@@ -61,7 +64,8 @@ key: send_success_message
 ---
 type: Operation
 selector:
-  workflow: jira_search_issue
+  workflow:
+    - jira_search_issue
   app: whatsapp
   app_action: send_message
 output:
