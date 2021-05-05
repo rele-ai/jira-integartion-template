@@ -8,7 +8,8 @@ key: jira_create_issue
 type: Operation
 is_root: true
 selector:
-  workflow: jira_create_issue
+  workflow:
+    - jira_create_issue
   app: whatsapp
   app_action: send_message
 next:
@@ -25,7 +26,8 @@ key: get_summary
 ---
 type: Operation
 selector:
-  workflow: jira_create_issue
+  workflow:
+    - jira_create_issue
   app: whatsapp
   app_action: send_message
 next:
@@ -42,7 +44,8 @@ key: get_description
 ---
 type: Operation
 selector:
-  workflow: jira_create_issue
+  workflow:
+    - jira_create_issue
   app: jira
   app_action: create_issue
 on_error:
@@ -68,7 +71,8 @@ key: create_issue_request
 ---
 type: Operation
 selector:
-  workflow: jira_create_issue
+  workflow:
+    - jira_create_issue
   app: whatsapp
   app_action: send_message
 output:
@@ -81,7 +85,8 @@ key: send_success_message
 ---
 type: Operation
 selector:
-  workflow: jira_create_issue
+  workflow:
+    - jira_create_issue
   app: whatsapp
   app_action: send_message
 output:
