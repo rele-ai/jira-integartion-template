@@ -1,5 +1,9 @@
 const JiraClient = require("./jira")
+const { RBS } = require("@releai/rb-node-sdk")
 const logger = require("@releai/rb-node-sdk/src/utils/logger")
+
+// create new router instance
+const router = new RBS.Router()
 
 /**
  * Search for an issue with the provided query
@@ -8,7 +12,7 @@ const logger = require("@releai/rb-node-sdk/src/utils/logger")
  * @param {Request} req - RB's request object.
  * @param {Response} res - RB's response object.
  */
-module.exports.search_issue = async (req, res) => {
+router.use("search_issue", async (req, res) => {
     // debug icoming request
     logger.debug({
         message: "recieved request to search_issue endpoint",
@@ -37,7 +41,7 @@ module.exports.search_issue = async (req, res) => {
 
         res.send(400, { error: err.message })
     }
-}
+})
 
 /**
  * Create a new issue in JIRA.
@@ -45,7 +49,7 @@ module.exports.search_issue = async (req, res) => {
  * @param {Request} req - RB's request object.
  * @param {Response} res - RB's response object.
  */
-module.exports.create_issue = async (req, res) => {
+router.use("create_issue", async (req, res) => {
     // debug icoming request
     logger.debug({
         message: "recieved request to create_issue endpoint",
@@ -71,4 +75,6 @@ module.exports.create_issue = async (req, res) => {
 
         res.send(500, { issue_created: false, error: err.message })
     }
-}
+})
+
+module.exports = router
