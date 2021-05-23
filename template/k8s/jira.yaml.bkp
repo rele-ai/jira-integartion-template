@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: server
-          image: eu.gcr.io/releai-bot-dev/jira
+          image: PLACEHOLDER_IMAGE_NAME
           ports:
             - name: grpc
               containerPort: 60001
