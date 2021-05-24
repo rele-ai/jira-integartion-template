@@ -61,11 +61,11 @@ router.use("create_issue", async (req, res) => {
         const client = new JiraClient("DEMO")
 
         // create a new issue
-        const { id, self } = await client.createIssue(req.payload.summary, req.payload.description)
+        const { id, key, self } = await client.createIssue(req.payload.summary, req.payload.description)
 
         // manage response to user
         id
-            ? res.send(200, { issue_created: true, link: self, message: `Here's the link for the new issue:\n${process.env.JIRA_BASE_URL}/browse/${id}` })
+            ? res.send(200, { issue_created: true, link: self, message: `Here's the link for the new issue:\n${process.env.JIRA_BASE_URL}/browse/${key}` })
             : res.send(500, { issue_created: false })
     } catch (err) {
         logger.error({
