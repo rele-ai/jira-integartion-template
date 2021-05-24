@@ -65,7 +65,7 @@ router.use("create_issue", async (req, res) => {
 
         // manage response to user
         id
-            ? res.send(200, { issue_created: true, link: self, message: `Here's the link for the new issue:\n${self}` })
+            ? res.send(200, { issue_created: true, link: self, message: `Here's the link for the new issue:\n${process.env.JIRA_BASE_URL}/browse/${id}` })
             : res.send(500, { issue_created: false })
     } catch (err) {
         logger.error({
