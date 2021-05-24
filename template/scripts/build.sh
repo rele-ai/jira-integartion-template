@@ -13,8 +13,8 @@ rb auth:login
 # gcloud cluster login
 gcloud container clusters get-credentials $CLUSTER_NAME --region $CLOUD_REGION --project $PROJECT_NAME
 # rb tool apply
-BASE_URL="jira:60001" # RELEAI CASE (have to correspond to k8s yaml in port value)
-sed -i'.bkp' -e "s/PLACEHOLDER_BASE_URL/$BASE_URL/g" "$WORKING_DIR/configs/app.yaml"
+# BASE_URL="jira:60001" # RELEAI CASE (have to correspond to k8s yaml in port value)
+# sed -i'.bkp' -e "s/PLACEHOLDER_BASE_URL/$BASE_URL/g" "$WORKING_DIR/configs/app.yaml"
 rb apply -f configs
 # placeholder replace
 IMAGE_NAME="eu.gcr.io\/$PROJECT_NAME\/jira"
