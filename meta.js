@@ -1,6 +1,21 @@
 // export template meta information
 module.exports = {
     prompts: {
+        PROJECT_NAME: {
+            type: "string",
+            required: true,
+            label: "GCP - Cloud project name"
+        },
+        CLOUD_REGION: {
+            type: "string",
+            required: true,
+            label: "GCP - Cloud project region"
+        },
+        CLUSTER_NAME: {
+            type: "string",
+            required: true,
+            label: "GCP - Cluster Name"
+        },
         JIRA_BASE_URL: {
             type: "string",
             required: true,
