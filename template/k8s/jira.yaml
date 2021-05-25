@@ -1,0 +1,76 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jira
+  namespace: releai
+spec:
+  selector:
+    matchLabels:
+      app: jira
+  template:
+    metadata:
+      labels:
+        app: jira
+    spec:
+      containers:
+        - name: server
+          image: PLACEHOLDER_IMAGE_NAME
+          ports:
+            - name: grpc
+              containerPort: 60001
+          resources:
+            requests:
+              cpu: 300m
+              # memory: 64Mi
+            limits:
+              cpu: 500m
+              # memory: 128Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jira
+  namespace: releai
+spec:
+  selector:
+    app: jira
+  ports:
+    - name: grpc
+      port: 60001
+      targetPort: 9090
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: jira
+  namespace: releai
+spec:
+  hosts:
+    - "jira.demo.rele.ai"
+  gateways:
+    - jira
+  http:
+    - match:
+       - uri:
+          prefix: /
+      route:
+      - destination:
+          host: jira
+          port:
+            number: 60001
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: jira
+  namespace: releai
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+    - port:
+        name: grpc
+        number: 60001
+        protocol: GRPC
+      hosts:
+        - "jira.demo.rele.ai"
