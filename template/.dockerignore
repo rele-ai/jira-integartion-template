@@ -1,6 +1,6 @@
 ##
 README.md
-template/configs
-template/k8s
+configs
+k8s
 node_modules
 package-lock.json
