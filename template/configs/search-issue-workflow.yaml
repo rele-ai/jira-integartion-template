@@ -21,7 +21,7 @@ next:
 payload:
   content:
     type: raw
-    data: "What would you like me to search? 🧐\n(remember! this demo uses JQL syntax)"
+    data: "What would you like me to search? 🧐\n(remember! this demo uses JQL syntax)\n **example:\nstatus='To Do'**"
 key: get_query
 ---
 type: Operation

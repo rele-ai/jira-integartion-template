@@ -24,13 +24,13 @@ router.use("search_issue", async (req, res) => {
         const client = new JiraClient("DEMO")
 
         // search in jira
-        const { issues, total } = await client.searchIssue(req.payload.query)
-        const issuesMessage = issues.map((issue) => `- Summary: ${issue.fields.summary}\n  Link: ${issue.self}`)
+        const { issues, key ,total } = await client.searchIssue(req.payload.query)
+        const issuesMessage = issues.map((issue) => `*- Summary:* ${issue.fields.summary}\n ➡️ ${process.env.JIRA_BASE_URL}/browse/${issue.key}` )
 
         // manage response to user
         res.send(200, {
             message: total
-                ? `I've found ${total} issues.\nHere's a summary:\n${issuesMessage.join("\n\n")}`
+                ? `*I've found ${total} issues.* 😯 \n*Here's a summary:*\n\n${issuesMessage.join("\n\n")}`
                 : `I couldn't find any issues 🤨`
         })
     } catch (err) {
