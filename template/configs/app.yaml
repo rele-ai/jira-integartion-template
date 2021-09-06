@@ -1,17 +1,17 @@
-# Define the JIRA connection
+# Define the jira_app connection
 type: App
 base_url: PLACEHOLDER_BASE_URL
 tls: false
-key: jira
+key: jira_app
 ---
 # Describe the search issue app action
 type: AppAction
 selector:
-  app: jira
+  app: jira_app
 key: search_issue
 ---
 # Describe the create issue app action
 type: AppAction
 selector:
-  app: jira
+  app: jira_app
 key: create_issue

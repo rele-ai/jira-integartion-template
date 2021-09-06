@@ -46,7 +46,7 @@ type: Operation
 selector:
   workflow:
   - jira_create_issue
-  app: jira
+  app: jira_app
   app_action: create_issue
 on_error:
   selector:
